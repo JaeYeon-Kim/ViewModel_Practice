@@ -30,19 +30,29 @@ class MainActivity : AppCompatActivity() {
         // 뷰 모델 초기화
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        // score 변수의 변화를 감지
-        mainViewModel.score.observe(this, Observer {
-            binding.scoreText.text = mainViewModel.score.value.toString()
-        })
+        // 생명주기 셋팅, 생명주기 소유자 지정을 해야 LiveData가 작동
+        binding.lifecycleOwner = this
 
+        // 변수에 viewModel 초기화
+        binding.myVar = mainViewModel
 
-        binding.plusBtn.setOnClickListener {
-            mainViewModel.scorePlus()
+        /*
+        레이아웃에 직접 LiveData를 적용했기 때문에 버튼 이벤트를 필요가 없음.
+         */
 
-        }
-
-        binding.minusBtn.setOnClickListener {
-            mainViewModel.scoreMinus()
-        }
+//        // score 변수의 변화를 감지
+//        mainViewModel.score.observe(this, Observer {
+//            binding.scoreText.text = mainViewModel.score.value.toString()
+//        })
+//
+//
+//        binding.plusBtn.setOnClickListener {
+//            mainViewModel.scorePlus()
+//
+//        }
+//
+//        binding.minusBtn.setOnClickListener {
+//            mainViewModel.scoreMinus()
+//        }
     }
 }
